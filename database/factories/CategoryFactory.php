@@ -12,11 +12,11 @@ class CategoryFactory extends Factory
 {
     public function definition(): array
     {
-        $label = $this->faker->word();
+        $categoryname = $this->faker->words(3, true);
 
         return [
-            'label' => ucfirst($label),
-            'slug' => Str::slug($label),
+            'label' => $categoryname,
+            'slug' => Str::slug($categoryname),
             'description' => $this->faker->sentence(),
             'parent_id' => null, // Pour les sous catéogies
         ];

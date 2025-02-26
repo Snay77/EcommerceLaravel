@@ -10,7 +10,7 @@ class ShowProductController extends Controller
 {
     public function __invoke(Request $request, Product $product){
         return Inertia::render("Product/Show", [
-            'product' => $product,
+            'product' => $product->load(['categories','images']),
         ]);
     }
 }

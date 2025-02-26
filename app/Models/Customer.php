@@ -28,4 +28,17 @@ class Customer extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public function cart() 
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    public function addresse() {
+        return $this->hasMany(Addresse::class);
+    }
+
+    protected $with = [
+        'user',
+    ];
 }

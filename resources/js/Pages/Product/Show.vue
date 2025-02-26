@@ -1,5 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -9,20 +10,86 @@ const props = defineProps({
     }
 });
 
+const quantity = ref(1)
+
 // console.log(props.product);
+
+const addToCart = () => {
+    router.post("cart.add", props.product.id),
+    {
+        quantity: quantity.value
+    },
+    {
+        preserveScroll: true,
+        onSuccess: () => {
+            alert("Prouit ajouté au panier")
+        },
+        onError: (errors) => {
+            if (errors.quantity) {
+                alert(errors.quantity)
+            }
+        }
+    }
+}
 </script>
 
 <template>
-  <AppLayout>
-  <div>
-    <h1>Détails du Produits</h1>
-    <br>
-    <div>
-      <h2>Nom : {{ product.label }}</h2>
-      <p>Description : {{ product.description }}</p>
-    <br>
-    <Link href="/products">Retour à la liste des catégories</Link>
-    </div>
-  </div>
-  </AppLayout>
+    <AppLayout>
+        <Head :title="product.label" />
+        
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <!-- Bouton retour -->
+                <div class="mb-6">
+                    <Link 
+                        href="/products" 
+                        class="text-indigo-600 hover:text-indigo-500 flex items-center gap-2"
+                    >
+                        ← Retour aux produits
+                    </Link>
+                </div>
+
+                <!-- Détails du produit -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="md:flex">
+                        <!-- Image du produit -->
+                        <div class="md:w-1/2">
+                            <img 
+                                src="https://media.istockphoto.com/id/1401806376/fr/photo/bmw-m3-bleue.jpg?s=612x612&w=0&k=20&c=hebH5hQR9UZpUzWFkE5Fz5qZbxlS_bwFCL5IoOGbSiE="
+                                alt="Image du produit"
+                                class="w-full h-96 object-cover"
+                            />
+                        </div>
+
+                        <!-- Informations du produit -->
+                        <div class="p-8 md:w-1/2">
+                            <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ product.label }}</h1>
+                            
+                            <div class="mb-6">
+                                <p class="text-gray-600 text-lg leading-relaxed">{{ product.description }}</p>
+                            </div>
+
+                            <div class="flex justify-between items-center mb-8">
+                                <div class="text-2xl font-bold text-indigo-600">{{ product.price }} €</div>
+                                <div class="text-gray-600">
+                                    Stock: <span class="font-semibold">{{ product.stock }}</span>
+                                </div>
+                            </div>
+
+                            <!-- Bouton Ajouter au panier -->
+                            <button 
+                                @click="addToCart()"
+                                class="w-full bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-500 transition-colors duration-200 flex items-center justify-center gap-2"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                                </svg>
+                                Ajouter au panier
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </AppLayout>
 </template>
