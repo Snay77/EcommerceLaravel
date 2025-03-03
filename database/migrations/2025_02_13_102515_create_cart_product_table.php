@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('cart_id')->constrained();
             $table->foreignId('product_id')->constrained();
             $table->integer('quantity');
-            $table->integer('total_price')->comment('Prix Unitaire');
+            // $table->integer('total_price')->comment('Prix Unitaire');
             $table->timestamps();
         });
     }

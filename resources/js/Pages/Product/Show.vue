@@ -2,6 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
     product: {
@@ -15,21 +16,20 @@ const quantity = ref(1)
 // console.log(props.product);
 
 const addToCart = () => {
-    router.post("cart.add", props.product.id),
-    {
+    router.post(route('cart.add', { product: props.product.slug }), {
         quantity: quantity.value
     },
     {
         preserveScroll: true,
         onSuccess: () => {
-            alert("Prouit ajouté au panier")
+            alert("Produit ajouté au panier")
         },
         onError: (errors) => {
             if (errors.quantity) {
                 alert(errors.quantity)
             }
         }
-    }
+    })
 }
 </script>
 

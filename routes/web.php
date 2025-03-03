@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Cart\AddItemController;
+use App\Http\Controllers\Cart\ShowCartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShowAllCategoryController;
 use App\Http\Controllers\ShowAllProductController;
@@ -48,7 +49,7 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    // Route::get('/cart', ShowCartController::class)->name('cart.show');
+    Route::get('/cart', ShowCartController::class)->name('cart.show');
     Route::post('/cart/products/{product}', AddItemController::class)->name('cart.add');
     // Route::put('/cart/items/{item}', UpdateItemController::class)->name('cart.update');
     // Route::delete('/cart/items/{item}', RemoveItemController::class)->name('cart.remove');

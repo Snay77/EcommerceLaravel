@@ -13,17 +13,17 @@ class AddItemController extends Controller
      */
     public function __invoke(Request $request, Product $product)
     {
+        // dd($request->user()->customer());
         $cart = $request->user()->customer->cart()->firstOrCreate();
-        $cartItem = $cart->items()->where("product_id", $product->id)->first();
+        $cartItem = $cart->product()->where("product_id", $product->id)->first();
 
         if ($cartItem) {
             $cartItem->update([
                 'quantity' => $cartItem->quantity + $cartItem->quantity,
             ]);
         } else {
-            $cart->items()->create([
-                'product_id' => $product->id,
-                'quantity' => $request->quantity,
+            $cart->product()->attach($product->id,[
+                'quantity' => $request->quantity
             ]);
         }
 
