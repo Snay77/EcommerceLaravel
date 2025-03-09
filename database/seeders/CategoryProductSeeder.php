@@ -16,14 +16,5 @@ class CategoryProductSeeder extends Seeder
             $products = Product::factory(5)->create(); // créé 5 produits
             $category->products()->attach($products->pluck('id')); // associe les produits à la catégorie
         });
-
-        // Optionnel: si tu veux assigner plusieurs catégories aux produits
-        // $products = Product::all();
-        // foreach ($products as $product) {
-        //     // On attache entre 1 et 3 catégories aléatoires par produit
-        //     $product->categories()->attach(
-        //         Category::inRandomOrder()->take(rand(1, 3))->pluck('id')
-        //     );
-        // }
     }
 }

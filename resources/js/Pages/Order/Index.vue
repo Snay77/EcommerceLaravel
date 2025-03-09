@@ -74,7 +74,6 @@ console.log(props.orders)
                                     <p class="text-gray-600">
                                         Adresse de livraison :
                                     </p>
-                                    <!-- Ajout de la vérification pour shippingadresse -->
                                     <p v-if="order.shippingadresse" class="text-sm text-gray-500">
                                         {{ order.shippingadresse.street }}<br>
                                         {{ order.shippingadresse.postcode }} {{ order.shippingadresse.city }}

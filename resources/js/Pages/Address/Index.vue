@@ -5,14 +5,12 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 
 
-// Accéder aux données passées par Inertia
 const { addresses } = usePage().props;
 
 const editingAddress = ref(null);
 const addingNewAddress = ref(false);
 
 
-// Formulaire de mise à jour
 const form = useForm({
     street: '',
     postcode: '',
@@ -20,7 +18,6 @@ const form = useForm({
     is_default: false,
 });
 
-// Fonction pour charger l'adresse à éditer dans le formulaire
 const editAddress = (address) => {
     editingAddress.value = address;
     form.street = address.street;
@@ -29,29 +26,25 @@ const editAddress = (address) => {
     form.is_default = address.is_default;
 };
 
-// Fonction pour mettre à jour l'adresse
 const updateAddress = () => {
     form.put(route('addresses.update', { address: editingAddress.value.id }), {
         onSuccess: () => {
-            editingAddress.value = null; // Réinitialiser après succès
+            editingAddress.value = null;
             window.location.reload();
         },
     });
 };
 
-// Fonction pour soumettre le formulaire
 const submitAddress = () => {
     form.post(route('addresses.store'), {
         onSuccess: () => {
-            // Réinitialiser le formulaire après succès
             form.reset();
-            addingNewAddress.value = false; // Masquer le formulaire après soumission
+            addingNewAddress.value = false;
             window.location.reload();
         },
     });
 };
 
-// Fonction pour afficher/masquer le formulaire d'ajout
 const toggleAddAddressForm = () => {
     addingNewAddress.value = !addingNewAddress.value;
 };
@@ -60,20 +53,17 @@ const deleteAddress = (id) => {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette adresse ?')) {
         form.delete(route('addresses.delete', { address: id }), {
             onSuccess: () => {
-                // Optionnel: rafraîchir la page après suppression
                 window.location.reload();
             },
         });
     }
 };
 
-// Fonction pour fermer le formulaire d'ajout
 const closeAddForm = () => {
     addingNewAddress.value = false;
     form.reset();
 };
 
-// Fonction pour fermer le formulaire d'édition
 const closeEditForm = () => {
     editingAddress.value = null;
     form.reset();
@@ -112,7 +102,7 @@ const closeEditForm = () => {
                                     : 'border-gray-200 hover:border-gray-300 bg-white'
                             ]"
                         >
-                            <!-- Badge Adresse par défaut -->
+                            <!-- Adresse par défaut -->
                             <div 
                                 v-if="address.is_default" 
                                 class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white text-xs px-3 py-1 rounded-full"

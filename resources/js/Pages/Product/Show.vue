@@ -6,7 +6,7 @@ import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
     product: {
-        type: Object,  // La catégorie est passée comme un objet
+        type: Object,
         required: true,
     },
     currentCartQuantity: {

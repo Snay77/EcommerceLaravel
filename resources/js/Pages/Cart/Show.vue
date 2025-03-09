@@ -19,10 +19,9 @@ const props = defineProps({
     }
 });
 
-const total = ref(props.total);  // Référence pour le total
+const total = ref(props.total);
 console.log(total)
 
-// Recalcule le total chaque fois qu'il y a un changement dans le panier
 watch(() => props.cart, (newCart) => {
     total.value = newCart.product.reduce((sum, item) => sum + (item.pivot.quantity * item.price), 0);
 }, { deep: true });
@@ -47,7 +46,6 @@ const createOrder = () => {
     router.post(route('orders.store'), {}, {
         preserveScroll: true,
         onSuccess: () => {
-            // Redirection vers la page des commandes ou message de succès
         }
     });
 };
@@ -91,13 +89,13 @@ const createOrder = () => {
                         </div>
                     </div>
 
-                    <!-- Liste des produits (code existant) -->
+                    <!-- Liste des produits -->
                     <div class="bg-white rounded-lg shadow-md">
                         <!-- Items du panier -->
                         <div class="divide-y divide-gray-200">
                             <div v-for="item in cart.product" :key="item.id" class="p-6">
                                 <div class="flex items-center space-x-4">
-                                    <img :src="item.cover_image" alt="" class="w-20 h-20 object-cover rounded">
+                                    <img :src="item.cover_image || 'https://media.istockphoto.com/id/1401806376/fr/photo/bmw-m3-bleue.jpg?s=612x612&w=0&k=20&c=hebH5hQR9UZpUzWFkE5Fz5qZbxlS_bwFCL5IoOGbSiE='" alt="" class="w-20 h-20 object-cover rounded">
                                     <div class="flex-1">
                                         <h3 class="text-lg font-semibold">{{ item.label }}</h3>
                                         <p class="text-gray-600">{{ item.price }} €</p>
@@ -124,7 +122,7 @@ const createOrder = () => {
                         </div>
                     </div>
 
-                    <!-- Total et Bouton de finalisation -->
+                    <!-- Total et Bouton de de commande -->
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <div class="flex justify-between items-center mb-6">
                             <span class="text-lg font-semibold">Total</span>

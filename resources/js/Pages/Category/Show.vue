@@ -4,7 +4,7 @@ import { Head, Link, router } from '@inertiajs/vue3';
 
 const props = defineProps({
     category: {
-        type: Object,  // La catégorie est passée comme un objet
+        type: Object,
         required: true,
     },
     products: {

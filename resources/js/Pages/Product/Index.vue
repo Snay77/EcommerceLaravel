@@ -17,7 +17,7 @@ const quantity = 1;
 
 
 const addToCart = (product) => {
-    const totalQuantity = props.currentCartQuantity.value + quantity; // chercher une solution pourquoi current est à 0
+    const totalQuantity = props.currentCartQuantity.value + quantity;
     console.log(props.currentCartQuantity)
 
     if (totalQuantity > product.stock) {
