@@ -24,10 +24,10 @@ class RemoveItemController extends Controller
 
 
         if ($cartItem) {
-            
+
             $cart->product()->detach($item->id);
             return redirect()->back()->with('success', 'Produit supprimé du panier');
-
+            
         } else {
             return redirect()->back()->withErrors('Produit introuvable dans le panier.');
         }

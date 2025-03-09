@@ -7,6 +7,8 @@ use App\Http\Controllers\Cart\UpdateItemController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Address\ListAddressController;
 use App\Http\Controllers\Address\CreateAddressController;
+use App\Http\Controllers\Address\SetDefaultAddressController;
+use App\Http\Controllers\Address\DeleteAddressController;
 use App\Http\Controllers\Address\UpdateAddressController;
 use App\Http\Controllers\ShowAllCategoryController;
 use App\Http\Controllers\ShowAllProductController;
@@ -62,8 +64,8 @@ Route::middleware([
     Route::get('/addresses', ListAddressController::class)->name('addresses.index');
     Route::post('/addresses', CreateAddressController::class)->name('addresses.store');
     Route::put('/addresses/{address}', UpdateAddressController::class)->name('addresses.update');
-    // Route::delete('/addresses/{address}', DeleteAddressController::class)->name('addresses.delete');
-    // Route::put('addresses/{address)/default', SetDefaultAddressController::class)->name('addresses.default');
+    Route::delete('/addresses/{address}', DeleteAddressController::class)->name('addresses.delete');
+    Route::put('addresses/{address)/default', SetDefaultAddressController::class)->name('addresses.default');
 
     // Route::get('/orders', ListOrdersController::class)->name('orders.index');
     // Route::post('/orders', CreateOrderController::class)->name('orders.store');
