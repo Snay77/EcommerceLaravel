@@ -22,8 +22,8 @@ class Product extends Model
     protected function price(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value / 100,
-            set: fn ($value) => $value * 100,
+            get: fn($value) => $value / 100,
+            set: fn($value) => $value * 100,
         );
     }
 
@@ -32,7 +32,8 @@ class Product extends Model
         'stock' => 'integer',
     ];
 
-    public function getRouteKeyName() {
+    public function getRouteKeyName()
+    {
         return 'slug';
     }
 
@@ -51,12 +52,15 @@ class Product extends Model
         return $this->hasOne(ProductImage::class)->where('is_cover', true);
     }
 
-    public function cart() {
+    public function cart()
+    {
         return $this->belongsToMany(Cart::class);
     }
 
-    public function order() {
-        return $this->belongsToMany(Order::class);
+    public function order()
+    {
+        return $this->belongsToMany(Order::class)
+            ->withPivot('quantity', 'price');
     }
 
     // public function getPriceAttribute($value) // permet d'avoir le prix en €

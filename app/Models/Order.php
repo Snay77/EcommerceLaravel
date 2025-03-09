@@ -16,15 +16,19 @@ class Order extends Model
         'shipping_addresses_id',
     ];
 
-    public function shippingadresse() {
+    public function shippingadresse()
+    {
         return $this->belongsTo(ShippingAddresse::class);
     }
 
-    public function customer() {
+    public function customer()
+    {
         return $this->belongsTo(Customer::class);
     }
 
-    public function product() {
-        return $this->belongsToMany(Product::class);
+    public function product()
+    {
+        return $this->belongsToMany(Product::class)
+            ->withPivot('quantity', 'price');
     }
 }
