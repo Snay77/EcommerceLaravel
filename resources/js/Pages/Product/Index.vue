@@ -6,14 +6,22 @@ const props = defineProps({
     products: {
         type: Object,
         required: true,
+    },
+    currentCartQuantity: {
+        type: Number,
+        default: 0,
     }
 });
 
 const quantity = 1;
 
+
 const addToCart = (product) => {
-    if (product.stock < quantity) {
-        alert("Quantité non disponible en stock !");
+    const totalQuantity = props.currentCartQuantity.value + quantity; // chercher une solution pourquoi current est à 0
+    console.log(props.currentCartQuantity)
+
+    if (totalQuantity > product.stock) {
+        alert("La quantité totale demandée dépasse le stock disponible !");
         return;
     }
 

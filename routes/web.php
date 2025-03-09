@@ -5,6 +5,9 @@ use App\Http\Controllers\Cart\RemoveItemController;
 use App\Http\Controllers\Cart\ShowCartController;
 use App\Http\Controllers\Cart\UpdateItemController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Address\ListAddressController;
+use App\Http\Controllers\Address\CreateAddressController;
+use App\Http\Controllers\Address\UpdateAddressController;
 use App\Http\Controllers\ShowAllCategoryController;
 use App\Http\Controllers\ShowAllProductController;
 use App\Http\Controllers\ShowCategoryController;
@@ -56,9 +59,9 @@ Route::middleware([
     Route::put('/cart/items/{item}', UpdateItemController::class)->name('cart.update');
     Route::delete('/cart/items/{item}', RemoveItemController::class)->name('cart.remove');
 
-    // Route::get('/addresses', ListAddressController::class)->name('addresses.index');
-    // Route::post('/addresses', CreateAddressController::class)->name('addresses.store');
-    // Route::put('/addresses/{address}', UpdateAddressController::class)->name('addresses.update');
+    Route::get('/addresses', ListAddressController::class)->name('addresses.index');
+    Route::post('/addresses', CreateAddressController::class)->name('addresses.store');
+    Route::put('/addresses/{address}', UpdateAddressController::class)->name('addresses.update');
     // Route::delete('/addresses/{address}', DeleteAddressController::class)->name('addresses.delete');
     // Route::put('addresses/{address)/default', SetDefaultAddressController::class)->name('addresses.default');
 

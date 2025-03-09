@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('street');
             $table->integer('postcode');
             $table->string('city');
-            $table->boolean('id_default');
+            $table->boolean('is_default');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('adresses');
+        Schema::dropIfExists('addresses');
     }
 };

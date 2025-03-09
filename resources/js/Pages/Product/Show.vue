@@ -8,16 +8,24 @@ const props = defineProps({
     product: {
         type: Object,  // La catégorie est passée comme un objet
         required: true,
+    },
+    currentCartQuantity: {
+        type: Number,
+        default: 0,
     }
 });
 
-// const quantity = ref(1)
+const quantity = ref(1)
+
+
 
 // console.log(props.product);
 
 const addToCart = () => {
-    if (quantity.value > props.product.stock) {
-        alert("La quantité demandée dépasse le stock disponible.");
+    const totalQuantity = props.currentCartQuantity + quantity.value;
+
+    if (totalQuantity > props.product.stock) {
+        alert("La quantité totale demandée dépasse le stock disponible.");
         return;
     }
 
@@ -79,9 +87,9 @@ const addToCart = () => {
                             <!-- Sélection de la quantité -->
                             <div class="mb-4">
                                 <label for="quantity" class="block text-gray-700 font-semibold mb-2">Quantité</label>
-                                <input type="number" id="quantity" v-model="quantity" :max="product.stock" :min="1"
-                                    class="border rounded px-3 py-2 w-20" />
+                                <input type="number" id="quantity" v-model="quantity" :max="product.stock" :min="1" class="border rounded px-3 py-2 w-20" />
                                 <p class="text-sm text-gray-500 mt-1">Stock disponible: {{ product.stock }}</p>
+                                <p class="text-sm text-gray-500 mt-1">Dans le panier: {{ currentCartQuantity }}</p>
                             </div>
 
                             <!-- Bouton Ajouter au panier -->
