@@ -22,7 +22,6 @@ class UpdateItemController extends Controller
 
         // dd($cart);
 
-        // $cartItem = $cart->product()->get();
         $cartItem = $cart->product()->where('product_id', $item->id)->first();
 
         // dd($cartItem);

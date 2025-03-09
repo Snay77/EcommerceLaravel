@@ -17,7 +17,6 @@ class RemoveItemController extends Controller
 
         // dd($cart);
 
-        // $cartItem = $cart->product()->get();
         $cartItem = $cart->product()->where('product_id', $item->id)->first();
 
         // dd($cartItem);
@@ -27,7 +26,7 @@ class RemoveItemController extends Controller
 
             $cart->product()->detach($item->id);
             return redirect()->back()->with('success', 'Produit supprimé du panier');
-            
+
         } else {
             return redirect()->back()->withErrors('Produit introuvable dans le panier.');
         }

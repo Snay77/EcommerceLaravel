@@ -12,14 +12,12 @@ class ShowCartController extends Controller
 {
     public function __invoke(Request $request)
     {
-        // Récupérer le panier s'il existe
         $cart = $request->user()->customer->cart;
 
         $defaultAddress = Addresse::where('customer_id', auth()->id())
             ->where('is_default', true)
             ->first();
 
-        // Si le panier existe, charger les produits
         if ($cart) {
             $cart->load('product');
             $total = $cart->product->sum(fn($item) => $item->pivot->quantity * $item->price);

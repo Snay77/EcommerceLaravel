@@ -11,6 +11,6 @@ class DeleteAddressController extends Controller
     public function __invoke(Request $request, Addresse $address)
     {
         $address->delete();
-        return redirect()->route('addresses.index'); // rediriger après suppression
+        return redirect()->route('addresses.index');
     }
 }

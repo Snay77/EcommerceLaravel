@@ -18,7 +18,6 @@ class CreateOrderController extends Controller
             return back()->withErrors(['error' => 'Votre panier est vide']);
         }
 
-        // Récupérer l'adresse par défaut dans la table 'addresses'
         $defaultAddress = Addresse::where('customer_id', auth()->id())
             ->where('is_default', true)
             ->first();
@@ -27,27 +26,23 @@ class CreateOrderController extends Controller
             return back()->withErrors(['error' => 'Veuillez définir une adresse de livraison']);
         }
 
-        // Créer une nouvelle entrée dans 'shipping_addresses' sans relation avec 'customer_id'
         $shippingAddress = ShippingAddresse::create([
             'street' => $defaultAddress->street,
             'postcode' => $defaultAddress->postcode,
             'city' => $defaultAddress->city,
         ]);
 
-        // Calculer le total
         $totalAmount = $cart->product->sum(function($item) {
             return $item->pivot->quantity * $item->price;
         });
 
-        // Créer la commande avec l'adresse de livraison
         $order = Order::create([
             'customer_id' => $request->user()->customer->id,
-            'shipping_addresses_id' => $shippingAddress->id, // Utiliser la nouvelle adresse créée
+            'shipping_addresses_id' => $shippingAddress->id,
             'total_amount' => $totalAmount,
             'status' => 'pending'
         ]);
 
-        // Ajouter les produits à la commande
         foreach ($cart->product as $product) {
             $order->product()->attach($product->id, [
                 'quantity' => $product->pivot->quantity,
@@ -55,7 +50,6 @@ class CreateOrderController extends Controller
             ]);
         }
 
-        // Vider le panier
         $cart->product()->detach();
 
         return redirect()->route('orders.show', $order)
