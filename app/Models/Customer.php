@@ -34,7 +34,7 @@ class Customer extends Model
         return $this->hasOne(Cart::class);
     }
 
-    public function addresse() {
+    public function addresses() {
         return $this->hasMany(Addresse::class);
     }
 

@@ -10,6 +10,9 @@ use App\Http\Controllers\Address\CreateAddressController;
 use App\Http\Controllers\Address\SetDefaultAddressController;
 use App\Http\Controllers\Address\DeleteAddressController;
 use App\Http\Controllers\Address\UpdateAddressController;
+use App\Http\Controllers\Order\CreateOrderController;
+use App\Http\Controllers\Order\ListOrdersController;
+use App\Http\Controllers\Order\ShowOrderController;
 use App\Http\Controllers\ShowAllCategoryController;
 use App\Http\Controllers\ShowAllProductController;
 use App\Http\Controllers\ShowCategoryController;
@@ -67,7 +70,7 @@ Route::middleware([
     Route::delete('/addresses/{address}', DeleteAddressController::class)->name('addresses.delete');
     Route::put('addresses/{address)/default', SetDefaultAddressController::class)->name('addresses.default');
 
-    // Route::get('/orders', ListOrdersController::class)->name('orders.index');
-    // Route::post('/orders', CreateOrderController::class)->name('orders.store');
-    // Route::get('/orders/{order}', ShowOrderController::class)->name('orders.show');
+    Route::get('/orders', ListOrdersController::class)->name('orders.index');
+    Route::post('/orders', CreateOrderController::class)->name('orders.store');
+    Route::get('/orders/{order}', ShowOrderController::class)->name('orders.show');
 });
