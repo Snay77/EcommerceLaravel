@@ -55,9 +55,6 @@ const logout = () => {
                                 <NavLink :href="route('products')" :active="route().current('products')">
                                     Produits
                                 </NavLink>
-                                <NavLink :href="route('addresses.index')">
-                                    Addresses
-                                </NavLink>
                             </div>
                         </div>
 
@@ -77,6 +74,9 @@ const logout = () => {
                             <!-- Connecté -->
                             <template v-else>
                                 <div class="ms-3 relative flex items-center">
+                                    <Link :href="route('addresses.index')">
+                                        Adresse
+                                    </Link>
                                     <!-- Panier -->
                                     <Link :href="route('cart.show')"
                                         class="text-gray-500 hover:text-gray-700 mr-4 flex items-center">
