@@ -11,9 +11,7 @@ class ShowOrderController extends Controller
     public function __invoke(Request $request, $orderId)
     {
         // Récupérer la commande avec ses produits et l'adresse de livraison
-        $order = Order::with(['product', 'shippingadresse'])->findOrFail($orderId);
-
-        // dd($order);
+        $order = Order::with(['products', 'shippingadresse'])->findOrFail($orderId);
 
         // Passer l'objet $order à la vue
         return inertia('Order/Show', [

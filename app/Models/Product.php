@@ -63,6 +63,11 @@ class Product extends Model
             ->withPivot('quantity', 'price');
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_product')->withPivot('quantity', 'price')->withTimestamps();
+    }
+
     // public function getPriceAttribute($value) // permet d'avoir le prix en €
     // {
     //     return number_format($value / 100, 2, ',', ' ') . ' €';

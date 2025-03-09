@@ -63,9 +63,9 @@ const getStatusLabel = (status) => {
                             <div>
                                 <h2 class="text-xl font-semibold">Produits commandés</h2>
                                 <ul class="space-y-2 mt-2">
-                                    <li v-for="product in order.product" :key="product.id" class="flex justify-between">
+                                    <li v-for="product in order.products" :key="product.id" class="flex justify-between">
                                         <div class="space-x-4">
-                                            <span class="font-medium">{{ product.name }}</span>
+                                            <span class="font-medium">{{ product.slug }}</span>
                                             <span class="text-gray-500">x {{ product.pivot.quantity }}</span>
                                         </div>
                                         <span class="font-semibold">{{ product.pivot.price }} €</span>
