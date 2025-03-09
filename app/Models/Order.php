@@ -16,9 +16,10 @@ class Order extends Model
         'shipping_addresses_id',
     ];
 
-    public function shippingadresse() {
-        return $this->belongsTo(ShippingAddresse::class);
-    }
+    public function shippingadresse()
+{
+    return $this->belongsTo(ShippingAddresse::class, 'shipping_addresses_id');
+}
 
     public function customer() {
         return $this->belongsTo(Customer::class);

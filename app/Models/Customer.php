@@ -38,6 +38,11 @@ class Customer extends Model
         return $this->hasMany(Addresse::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     protected $with = [
         'user',
     ];
