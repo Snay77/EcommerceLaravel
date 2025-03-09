@@ -15,11 +15,15 @@ class ShowCartController extends Controller
             ->load('product')
             ->first();
 
+        $total = $cart ? $cart->product->sum(fn($item) => $item->pivot->quantity * $item->price) : 0;
+        // dd($total);
+        $totalEspace = number_format($total, 2, '.', ' ');
+
         return Inertia::render(
             'Cart/Show',
             [
                 'cart' => $cart,
-                'total' => $cart->product->sum(fn($item) => $item->quantity * $item->price)
+                'total' => $totalEspace
             ]
         );
     }

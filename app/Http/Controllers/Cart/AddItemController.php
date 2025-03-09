@@ -18,15 +18,15 @@ class AddItemController extends Controller
         $cartItem = $cart->product()->where("product_id", $product->id)->first();
 
         if ($cartItem) {
-            $cartItem->update([
-                'quantity' => $cartItem->quantity + $cartItem->quantity,
+            $cart->product()->updateExistingPivot($product->id, [
+                'quantity' => $cartItem->pivot->quantity + $request->quantity,
             ]);
         } else {
             $cart->product()->attach($product->id,[
                 'quantity' => $request->quantity
             ]);
         }
-
+        
         return redirect()->route('cart.show')->with('success', 'Produit ajouté au panier');
     }
 }

@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 
 const props = defineProps({
     category: {
@@ -12,6 +12,30 @@ const props = defineProps({
         required: true,
     }
 });
+
+const quantity = 1;
+
+const addToCart = (product) => {
+    if (product.stock < quantity) {
+        alert("Quantité non disponible en stock !");
+        return;
+    }
+
+    router.post(route('cart.add', { product: product.slug }), {
+        quantity: quantity
+    },
+    {
+        preserveScroll: true,
+        onSuccess: () => {
+            alert("Produit ajouté au panier");
+        },
+        onError: (errors) => {
+            if (errors.quantity) {
+                alert(errors.quantity);
+            }
+        }
+    });
+}
 
 // console.log(props.category);
 console.log(props.products);
@@ -44,10 +68,9 @@ console.log(props.products);
                     
                     <div v-if="category.products && category.products.length > 0" 
                          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <Link 
+                        <div 
                             v-for="p in category.products" 
                             :key="p.id" 
-                            :href="route('product.show', { product: p.slug})"
                             class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
                         >
                             <img 
@@ -67,13 +90,13 @@ console.log(props.products);
                             <!-- Boutons d'action -->
                             <div class="px-6 pb-6 space-y-2">
                                 <Link 
-                                    :href="route('product.show', { product: p.id})"
+                                    :href="route('product.show', { product: p.slug})"
                                     class="w-full block text-center text-indigo-600 py-2 px-4 rounded-lg border-2 border-indigo-600 hover:bg-indigo-50 transition-colors duration-200"
                                 >
                                     Voir le produit →
                                 </Link>
 
-                                <button 
+                                <button @click="addToCart(p)"
                                     class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-500 transition-colors duration-200 flex items-center justify-center gap-2"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -81,8 +104,8 @@ console.log(props.products);
                                     </svg>
                                     Ajouter au panier
                                 </button>
-                            </div>
-                        </Link>
+                            </div>  
+                        </div>
                     </div>
                     
                     <div v-else class="text-center py-12 bg-gray-50 rounded-lg">
